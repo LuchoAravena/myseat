@@ -15,5 +15,4 @@ test:
   database: casamiento_test
 
 production:
-  <<: *default
-  database: casamiento_production
+  url: <%= ENV["DATABASE_URL"] %>
