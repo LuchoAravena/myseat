@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="frame">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0" style="font-family:'Playfair Display',serif;">Editar invitado</h2>
+      <div class="d-flex gap-2">
+        <%= link_to "Ver", @guest, class: "btn btn-outline-secondary" %>
+        <%= link_to "Listado", guests_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+
+    <div class="search-card">
+      <%= render "form", guest: @guest, tables: @tables %>
+    </div>
+  </div>
+</div>

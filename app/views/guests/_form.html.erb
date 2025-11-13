@@ -1,0 +1,36 @@
+<%= form_with model: guest, local: true do |f| %>
+  <% if guest.errors.any? %>
+    <div class="alert alert-danger">
+      <strong>Revisá estos campos:</strong>
+      <ul class="mb-0">
+        <% guest.errors.full_messages.each do |m| %><li><%= m %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <%= f.label :name, "Nombre y apellido", class: "form-label" %>
+      <%= f.text_field :name, class: "form-control form-control-lg", placeholder: "Ej: Juan Pérez", required: true %>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <%= f.label :table_id, "Mesa", class: "form-label" %>
+      <%= f.collection_select :table_id,
+            tables, :id, ->(t) { "Mesa #{t.number} (#{t.guests.size}/#{t.capacity})" },
+            { include_blank: "Sin asignar" },
+            { class: "form-select form-select-lg" } %>
+      <div class="form-text">Entre paréntesis: ocupados / capacidad.</div>
+    </div>
+
+    <div class="col-12">
+      <%= f.label :notes, "Notas (opcional)", class: "form-label" %>
+      <%= f.text_area :notes, class: "form-control", rows: 3, placeholder: "Menú especial, niños, alergias…" %>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2 mt-4">
+    <%= f.submit (guest.persisted? ? "Guardar cambios" : "Agregar invitado"), class: "btn btn-primary btn-lg" %>
+    <%= link_to "Cancelar", (guest.persisted? ? guest_path(guest) : guests_path), class: "btn btn-outline-secondary btn-lg" %>
+  </div>
+<% end %>

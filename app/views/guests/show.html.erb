@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="frame">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0" style="font-family:'Playfair Display',serif;"><%= @guest.name %></h2>
+      <div class="d-flex gap-2">
+        <%= link_to "Editar", edit_guest_path(@guest), class: "btn btn-outline-secondary" %>
+        <%= link_to "Listado", guests_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-12 col-lg-5">
+        <div class="search-card">
+          <h5 class="mb-3" style="font-family:'Playfair Display',serif;">Detalle</h5>
+
+          <dl class="row mb-0">
+            <dt class="col-5">Mesa</dt>
+            <dd class="col-7">
+              <% if @guest.table %>
+                <span class="badge text-bg-secondary">Mesa <%= @guest.table.number %></span>
+                <div class="small text-muted">
+                  Ocupados: <%= @guest.table.used_seats %>/<%= @guest.table.capacity %>
+                </div>
+              <% else %>
+                <span class="text-muted">Sin asignar</span>
+              <% end %>
+            </dd>
+
+            <dt class="col-5">Notas</dt>
+            <dd class="col-7"><%= @guest.notes.presence || content_tag(:span, "—", class: "text-muted") %></dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-7">
+        <div class="search-card">
+          <h5 class="mb-3" style="font-family:'Playfair Display',serif;">Con quién se sienta</h5>
+          <% if @guest.table && @guest.tablemates.any? %>
+            <ul class="list-group">
+              <% @guest.tablemates.each do |g| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span><%= g.name %></span>
+                  <%= link_to "Ver", g, class: "btn btn-sm btn-outline-secondary" %>
+                </li>
+              <% end %>
+            </ul>
+          <% elsif @guest.table %>
+            <div class="alert alert-light mb-0">Aún no hay más asignados en esta mesa.</div>
+          <% else %>
+            <div class="alert alert-warning mb-0">Este invitado todavía no tiene mesa asignada.</div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

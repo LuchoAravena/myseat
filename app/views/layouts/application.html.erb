@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Casamiento</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  </head>
+ <style>
+      :root {
+        --paper:#f7f5f2;
+        --ink:#3f3a37;
+        --accent:#7a6e65;
+      }
+      html, body {
+        height: 100%;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      }
+      .frame {
+        max-width: 720px;
+        margin: 4rem auto;
+        background: var(--paper);
+        position: relative;
+        padding: 2.25rem 2rem;
+        border: 1px solid rgba(0,0,0,.08);
+        border-radius: .75rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,.06);
+        /* textura suave tipo papel */
+        background-image:
+          radial-gradient(rgba(0,0,0,.02) 1px, transparent 1px),
+          linear-gradient(transparent 0%, rgba(255,255,255,.6) 100%);
+        background-size: 6px 6px, 100% 100%;
+      }
+      .frame::before,
+      .frame::after{
+        content:"";
+        position:absolute; inset:14px;
+        border: 1px solid rgba(0,0,0,.12);
+        border-radius: .5rem;
+        pointer-events: none;
+      }
+      .title-small {
+        font-family: "Playfair Display", serif;
+        letter-spacing: .12rem;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+      .title-couple {
+        font-family: "Playfair Display", serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .search-card {
+        background: #fff;
+        border: 1px solid rgba(0,0,0,.06);
+        border-radius: .75rem;
+        padding: 1.5rem;
+      }
+      .btn-primary {
+        background-color: var(--ink);
+        border-color: var(--ink);
+      }
+      .btn-primary:hover {
+        background-color: #2f2b28;
+        border-color: #2f2b28;
+      }
+      .muted {
+        color: #857e78;
+        letter-spacing: .18rem;
+        text-transform: uppercase;
+        font-size: .76rem;
+      }
+    </style>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

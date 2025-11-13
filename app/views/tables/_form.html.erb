@@ -1,0 +1,32 @@
+<%= form_with model: table, local: true do |f| %>
+  <% if table.errors.any? %>
+    <div class="alert alert-danger">
+      <strong>Revisá estos campos:</strong>
+      <ul class="mb-0">
+        <% table.errors.full_messages.each do |m| %><li><%= m %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-4">
+      <%= f.label :number, "Número", class: "form-label" %>
+      <%= f.number_field :number, class: "form-control form-control-lg", min: 1, required: true %>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <%= f.label :capacity, "Capacidad", class: "form-label" %>
+      <%= f.number_field :capacity, class: "form-control form-control-lg", min: 1, required: true %>
+    </div>
+
+    <div class="col-12">
+      <%= f.label :notes, "Notas (opcional)", class: "form-label" %>
+      <%= f.text_area :notes, class: "form-control", rows: 3, placeholder: "Cerca de pista, alta, con enchufe, etc." %>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2 mt-4">
+    <%= f.submit (table.persisted? ? "Guardar cambios" : "Crear mesa"), class: "btn btn-primary btn-lg" %>
+    <%= link_to "Cancelar", (table.persisted? ? table_path(table) : tables_path), class: "btn btn-outline-secondary btn-lg" %>
+  </div>
+<% end %>

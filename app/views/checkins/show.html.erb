@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="frame text-center">
+    <h2 style="font-family:'Playfair Display',serif;" class="mb-2">Hola, <%= @guest.name %>!</h2>
+
+    <% if @guest.table %>
+      <div style="font-family:'Playfair Display',serif; font-size:110px; line-height:1; margin-bottom:.25rem;">
+        <div class="title-small">Mesa</div>
+        <%= @guest.table.number %>
+      </div>
+
+      <h5 class="mb-3" style="font-family:'Playfair Display',serif;">Te sentás con</h5>
+      <% if @guest.tablemates.any? %>
+        <ul class="list-group mx-auto" style="max-width:520px;">
+          <% @guest.tablemates.each do |g| %>
+            <li class="list-group-item"><%= g.name %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <div class="alert alert-light">Sos el primero en esta mesa 🙂</div>
+      <% end %>
+    <% else %>
+      <div class="alert alert-warning">
+        Aún no te asignaron una mesa. Consultá en recepción.
+      </div>
+    <% end %>
+    <div class="muted mt-2">¡Gracias por acompañarnos!</div>
+    <div class="mt-3">
+      <%= link_to "Buscar otra vez", root_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="frame">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0" style="font-family:'Playfair Display',serif;">Mesa <%= @table.number %></h2>
+      <div class="d-flex gap-2">
+        <%= link_to "Editar", edit_table_path(@table), class: "btn btn-outline-secondary" %>
+        <%= link_to "Listado", tables_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-12 col-lg-5">
+        <div class="search-card">
+          <h5 class="mb-3" style="font-family:'Playfair Display',serif;">Detalle</h5>
+          <dl class="row mb-0">
+            <dt class="col-5">Número</dt>
+            <dd class="col-7">#<%= @table.number %></dd>
+
+            <dt class="col-5">Capacidad</dt>
+            <dd class="col-7"><%= @table.capacity %> lugares</dd>
+
+            <dt class="col-5">Ocupados</dt>
+            <dd class="col-7"><%= @table.used_seats %> / <%= @table.capacity %></dd>
+
+            <dt class="col-5">Notas</dt>
+            <dd class="col-7"><%= @table.notes.presence || content_tag(:span, "—", class: "text-muted") %></dd>
+          </dl>
+
+          <div class="d-grid mt-3">
+            <%= link_to "Asignar invitados", assign_table_path(@table), class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-7">
+        <div class="search-card">
+          <h5 class="mb-3" style="font-family:'Playfair Display',serif;">Invitados asignados</h5>
+          <% if @table.guests.any? %>
+            <ul class="list-group">
+              <% @table.guests.order(:name).each do |g| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span><%= g.name %></span>
+                  <div class="btn-group">
+                    <%= link_to "Ver", g, class: "btn btn-sm btn-outline-secondary" %>
+                    <%= button_to "Quitar", remove_guest_table_path(@table, guest_id: g.id),
+                          method: :delete, class: "btn btn-sm btn-outline-danger" %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <div class="alert alert-light mb-0">No hay invitados en esta mesa todavía.</div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

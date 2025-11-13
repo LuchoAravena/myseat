@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="frame">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h2 class="mb-0" style="font-family:'Playfair Display',serif;">Mesas</h2>
+        <div class="muted">Total: <%= @tables.size %></div>
+      </div>
+      <div class="d-flex gap-2">
+        <%= link_to "Crear mesa", new_table_path, class: "btn btn-primary" %>
+        <%= link_to "Invitados", guests_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+
+    <div class="search-card">
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th class="text-center">Mesa</th>
+              <th class="text-center">Ocupados</th>
+              <th>Notas</th>
+              <th class="text-end">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @tables.each do |t| %>
+              <tr>
+                <td class="text-center"><span class="badge text-bg-secondary fs-6">#<%= t.number %></span></td>
+                <td class="text-center"><%= t.used_seats %> / <%= t.capacity %></td>
+                <td class="text-truncate" style="max-width: 360px;"><%= t.notes.presence || content_tag(:span, "—", class: "text-muted") %></td>
+                <td class="text-end">
+                  <div class="btn-group">
+                    <%= link_to "Ver", t, class: "btn btn-sm btn-outline-secondary" %>
+                    <%= link_to "Editar", edit_table_path(t), class: "btn btn-sm btn-outline-secondary" %>
+                    <%= link_to "Asignar invitados", assign_table_path(t), class: "btn btn-sm btn-primary" %>
+                    <%= button_to "Eliminar", t, method: :delete, form: { data: { turbo: false } },
+                          class: "btn btn-sm btn-outline-danger",
+                          data: { confirm: "¿Eliminar Mesa #{t.number}?" } %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <% if @tables.blank? %>
+        <div class="alert alert-light mb-0">No hay mesas aún. Creá la primera.</div>
+      <% end %>
+    </div>
+  </div>
+</div>
