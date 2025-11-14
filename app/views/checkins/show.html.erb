@@ -8,6 +8,15 @@
         <%= @guest.table.number %>
       </div>
 
+      <% if @guest.captain? %>
+        <div class="alert alert-info text-centered mx-auto mb-4" style="max-width: 520px;">
+          <div class="fw-bold mb-1">Felicitaciones, sos el capitán de tu mesa 🥂</div>
+          <p class="mb-2">
+            La caja que se encuentra en tu mesa, solo la podés abrir vos, adentro encontrarás las instrucciones
+          </p>
+        </div>
+      <% end %>
+
       <h5 class="mb-3" style="font-family:'Playfair Display',serif;">Te sentás con</h5>
       <% if @guest.tablemates.any? %>
         <ul class="list-group mx-auto" style="max-width:520px;">
@@ -24,6 +33,8 @@
       </div>
     <% end %>
     <div class="muted mt-2">¡Gracias por acompañarnos!</div>
+    <div class="muted mt-2">Lucho & Mili</div>
+    <div class="muted mt-2">14/11/2025</div>
     <div class="mt-3">
       <%= link_to "Buscar otra vez", root_path, class: "btn btn-outline-secondary" %>
     </div>

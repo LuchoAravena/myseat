@@ -15,6 +15,11 @@ class Public::CheckinsController < ApplicationController
     end
   end
 
+  def captain_instructions
+    @guest = Guest.find(params[:id])
+    redirect_to root_path unless @guest.captain?
+  end
+
   def show
     @guest = Guest.includes(table: :guests).find(params[:guest_id])
   end

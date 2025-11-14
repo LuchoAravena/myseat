@@ -1,5 +1,5 @@
 class TablesController < ApplicationController
-  before_action :set_table, only: [:show, :edit, :update, :destroy, :assign, :add_guest, :remove_guest]
+  before_action :set_table, only: [:show, :edit, :update, :destroy, :assign, :add_guest, :remove_guest, :set_captain]
 
   def index
     @tables = Table.order(:number)
@@ -35,15 +35,11 @@ class TablesController < ApplicationController
     redirect_to tables_path, notice: "Mesa eliminada."
   end
 
-  # ====== Asignación de invitados ======
-
-  # Vista donde ves asignados y sin mesa para agregar/quitar
   def assign
     @assigned   = @table.guests.order(:name)
     @unassigned = Guest.where(table_id: nil).order(:name)
   end
 
-  # Agrega 1 invitado sin mesa a esta mesa
   def add_guest
     guest = Guest.find(params[:guest_id])
 
@@ -57,11 +53,17 @@ class TablesController < ApplicationController
     redirect_to assign_table_path(@table), notice: "#{guest.name} asignado a Mesa #{@table.number}."
   end
 
-  # Quita 1 invitado de esta mesa (lo deja sin mesa)
   def remove_guest
     guest = @table.guests.find(params[:guest_id])
     guest.update!(table: nil)
     redirect_to assign_table_path(@table), notice: "#{guest.name} fue quitado de Mesa #{@table.number}."
+  end
+
+  def set_captain
+    guest = @table.guests.find(params[:guest_id])
+    @table.guests.update_all(captain: false)
+    guest.update!(captain: true)
+    redirect_to assign_table_path(@table), notice: "#{guest.name} fue asignado/a como capitán/a de Mesa #{@table.number}."
   end
 
   private

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get  :assign
       post :add_guest
       delete :remove_guest
+      post :set_captain 
     end
   end
   get "/qr", to: "qr#show"
